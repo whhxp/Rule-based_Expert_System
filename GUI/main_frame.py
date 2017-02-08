@@ -19,14 +19,14 @@ import sys
 from rule_editor import EditorFrame
 sys.path.append('..')
 from engine.inference_engine import *
-__author__ = 'Soros Liu'
+__author__ = 'Soros Liu and Modified by WU Huihuan'
 
 
 def draw_lines(image, facts, contour_num):
     for i in range(contour_num):
         for fact in facts['Contour' + str(i)]:
             for line in fact.about:
-                cv2.line(image, line.point1, line.point2, (0, 255, 0), 2, cv2.CV_AA)
+                cv2.line(image, line.point1, line.point2, (0, 255, 0), 2, cv2.LINE_AA)
 
 
 def get_result(results):
@@ -118,7 +118,8 @@ class MainFrame(wx.Frame):
         dlg = wx.FileDialog(self, 'Open Picture File', (os.getcwd() + '/../test'), style=wx.OPEN, wildcard=file_wildcard)
         if dlg.ShowModal() == wx.ID_OK:
             self.pic_path = dlg.GetPath()
-            self.SetTitle(self.title + ' -- Shape from: ' + re.findall(r'test/(.*)$', dlg.GetPath())[0])
+            #self.SetTitle(self.title + ' -- Shape from: ' + re.findall(r'test/(.*)$', self.pic_path)[0])
+            self.SetTitle(self.title + ' -- Shape from: ' + self.pic_path)
         else:
             dlg.Destroy()
             return
